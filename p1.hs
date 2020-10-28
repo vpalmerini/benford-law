@@ -3,6 +3,7 @@
 
 import Data.Char (isDigit)
 import Data.Map (fromList)
+import Data.Maybe (fromJust, isNothing)
 
 split :: String -> [String]
 split [] = [""]
@@ -15,6 +16,15 @@ isDigit' c
     | c == '0' = False
     | otherwise = isDigit c
 
+getFirstDigit [] = Nothing
+getFirstDigit (c:cs)
+    | isDigit' c = Just c
+    | otherwise = getFirstDigit cs
+
+updateMap key ((k,v):xs)
+    | key == k = (k, v + 1):xs
+    | otherwise = (k,v):(updateMap key xs)
+
 main = do
         string <- getContents
-        putStrLn $ show $ split string
+        putStrLn $ show $ benford $ split string
