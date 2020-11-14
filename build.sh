@@ -1,1 +1,1 @@
-ghc -o bin/p1 p1.hs
+ghc -o bin/app app.hs
